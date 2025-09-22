@@ -1,4 +1,4 @@
-import products from './products.json' with {type: 'json'};
+import products from '../data/products.json' with {type: 'json'};
 
 
 export const productsMap =
