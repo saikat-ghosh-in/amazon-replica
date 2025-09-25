@@ -20,9 +20,9 @@ export function getOrderSummary(cart, productsMap) {
   });
 //wip from here
   orderSummary.shippingAndHandlingCost = 1000;
-  orderSummary.totalBeforeTax = 5300;
+  orderSummary.totalBeforeTax = orderSummary.itemTotal + orderSummary.shippingAndHandlingCost;
   orderSummary.taxPercentage = 10;
-  orderSummary.taxAmount = 530;
-  orderSummary.orderTotal = 5830;
+  orderSummary.taxAmount = orderSummary.totalBeforeTax * (10 / 100);
+  orderSummary.orderTotal = orderSummary.totalBeforeTax + orderSummary.taxAmount;
   return orderSummary;
 }
