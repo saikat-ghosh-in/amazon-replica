@@ -14,12 +14,12 @@ export function formatAmount(amountInCents) {
 }
 
 export function getOrderSummary(cart, productsMap) {
-  cart.forEach((quantity, productId)=>{
+  cart.forEach((quantity, productId) => {
     orderSummary.itemQty += quantity;
     orderSummary.itemTotal += productsMap.get(productId).priceCents;
   });
-//wip from here
-  orderSummary.shippingAndHandlingCost = 1000;
+
+  orderSummary.shippingAndHandlingCost = 1000; // static value for now
   orderSummary.totalBeforeTax = orderSummary.itemTotal + orderSummary.shippingAndHandlingCost;
   orderSummary.taxPercentage = 10;
   orderSummary.taxAmount = orderSummary.totalBeforeTax * (10 / 100);

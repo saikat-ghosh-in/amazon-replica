@@ -5,19 +5,21 @@ import { formatAmount, getOrderSummary } from "./payment.js";
 
 let cart = new Map(JSON.parse(localStorage.getItem('cart')) ?? []);
 let checkoutHeaderHtml = '';
+let productsSummaryHtml = '';
 let orderSummaryHtml = '';
-let paymentSummaryHtml = '';
 
-// initial load of checkout header
+// initial load
 updateCheckoutHeader();
+updateOrderSummary();
+updateProductsForCheckout();
 
 // reset cart button
 document.querySelector('.js-reset-cart-button').addEventListener('click', () => {
   resetCart();
   cart.clear();
-  document.querySelector('.js-order-summary').innerHTML = '';
-  document.querySelector('.js-payment-summary').innerHTML = '';
   updateCheckoutHeader();
+  updateOrderSummary();
+  updateProductsForCheckout();
 });
 
 // load checkout header
@@ -74,9 +76,11 @@ function updateCheckoutHeader() {
 }
 
 // load products from cart for checkout
-cart.forEach((quantity, productId) => {
-  orderSummaryHtml +=
-    `
+function updateProductsForCheckout() {
+  if (cart.size > 0) {
+    cart.forEach((quantity, productId) => {
+      productsSummaryHtml +=
+        `
       <div class="cart-item-container">
         <div class="delivery-date">
           Delivery date: Tuesday, June 21
@@ -153,14 +157,20 @@ cart.forEach((quantity, productId) => {
         </div>
       </div>
     `
-    ;
-});
-document.querySelector('.js-order-summary').innerHTML = orderSummaryHtml;
+        ;
+    });
+  } else {
+    productsSummaryHtml = '';
+  }
+  document.querySelector('.js-order-summary').innerHTML = productsSummaryHtml;
+}
 
 // load payment summary
-const orderSummary = getOrderSummary(cart, productsMap);
-orderSummaryHtml =
-  `
+function updateOrderSummary() {
+  if (cart.size > 0) {
+    const orderSummary = getOrderSummary(cart, productsMap);
+    orderSummaryHtml =
+      `
     <div class="payment-summary-title">
       Order Summary
     </div>
@@ -189,10 +199,15 @@ orderSummaryHtml =
       <div>Order total:</div>
       <div class="payment-summary-money">$${formatAmount(orderSummary.orderTotal)}</div>
     </div>
-
+    <a class="cart-link header-link" href="orders.html">
     <button class="place-order-button button-primary">
       Place your order
     </button>
+    </a>
   `
-  ;
-document.querySelector('.js-payment-summary').innerHTML = orderSummaryHtml;
+      ;
+    document.querySelector('.js-payment-summary').innerHTML = orderSummaryHtml;
+  } else {
+    document.querySelector('.js-checkout-main').innerHTML = '<p>Your cart is empty</p>';
+  }
+}

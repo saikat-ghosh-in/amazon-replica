@@ -1,6 +1,8 @@
 import { productsMap } from './products.js';
 import { cartQty, addToCart } from './cart.js';
 
+// for initial cartQty load from local storage
+document.querySelector('.js-cart-quantity').innerText = cartQty;
 
 // loadProductsToPlp
 let plpHtml = '';
