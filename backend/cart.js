@@ -1,5 +1,5 @@
 
-let cart = new Map(JSON.parse(localStorage.getItem('cart')) ?? []);
+export let cart = new Map(JSON.parse(localStorage.getItem('cart')) ?? []);
 export let cartQty = parseInt(localStorage.getItem('cartQty')) || 0;
 
 export function addToCart(productId, addedQuantity) {
@@ -8,6 +8,15 @@ export function addToCart(productId, addedQuantity) {
   cartQty += addedQuantity;
   saveToLocalStorage();
   getTotalCartQuantity();
+}
+export function deleteFromCart(productId) {
+  const qty = cart.get(productId);
+  if (qty) {
+    cart.delete(productId);
+    cartQty -= qty;
+    saveToLocalStorage();
+    getTotalCartQuantity();
+  }
 }
 
 function getTotalCartQuantity() {
@@ -22,11 +31,11 @@ function saveToLocalStorage() {
 }
 
 export function resetCart() {
-  if(localStorage.getItem('cart')) {
+  if (localStorage.getItem('cart')) {
     localStorage.removeItem('cart');
     cart.clear();
   }
-  if(localStorage.getItem('cartQty')) {
+  if (localStorage.getItem('cartQty')) {
     localStorage.removeItem('cartQty');
     cartQty = 0;
   }
