@@ -1,9 +1,9 @@
-// import { cart } from './cart.js';
-import { productsMap } from "./products.js";
-import { cart, deleteFromCart, resetCart } from "./cart.js";
-import { formatAmount, getOrderSummary } from "./payment.js";
 
-// let cart = new Map(JSON.parse(localStorage.getItem('cart')) ?? []);
+import { productsMap } from "./products.js";
+import { cart, deleteFromCart, resetCart, updateDeliveryMethod } from "./cart.js";
+import { formatAmount, getOrderSummary } from "./payment.js";
+import { deliveryMethods } from "../data/deliveryMethods.js";
+import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 
 
 
@@ -42,7 +42,7 @@ function updateCheckoutPage() {
       </div>
     `;
 
-    cart.forEach((quantity, productId) => {
+    cart.forEach((cartDetails, productId) => {
       productsSummaryHtml +=
         `
         <div class="cart-item-container">
@@ -63,7 +63,7 @@ function updateCheckoutPage() {
               </div>
               <div class="product-quantity">
                 <span>
-                  Quantity: <span class="quantity-label">${quantity}</span>
+                  Quantity: <span class="quantity-label">${cartDetails.quantity}</span>
                 </span>
                 <span class="update-quantity-link link-primary">
                   Update
@@ -75,56 +75,26 @@ function updateCheckoutPage() {
               </div>
             </div>
 
-            <div class="delivery-options">
+            <div class="delivery-options js-delivery-options">
               <div class="delivery-options-title">
                 Choose a delivery option:
               </div>
-              <div class="delivery-option">
-                <input type="radio" checked
-                  class="delivery-option-input"
-                  name="delivery-option-${productId}">
-                <div>
-                  <div class="delivery-option-date">
-                    Tuesday, June 21
-                  </div>
-                  <div class="delivery-option-price">
-                    FREE Shipping
-                  </div>
-                </div>
-              </div>
-              <div class="delivery-option">
-                <input type="radio"
-                  class="delivery-option-input"
-                  name="delivery-option-${productId}">
-                <div>
-                  <div class="delivery-option-date">
-                    Wednesday, June 15
-                  </div>
-                  <div class="delivery-option-price">
-                    $4.99 - Shipping
-                  </div>
-                </div>
-              </div>
-              <div class="delivery-option">
-                <input type="radio"
-                  class="delivery-option-input"
-                  name="delivery-option-${productId}">
-                <div>
-                  <div class="delivery-option-date">
-                    Monday, June 13
-                  </div>
-                  <div class="delivery-option-price">
-                    $9.99 - Shipping
-                  </div>
-                </div>
-              </div>
+              ${getDeliveryOptionsHtml(productId)}
             </div>
           </div>
         </div>
       `;
+
+      // get delivery options
+      document.querySelectorAll(`.js-delivery-option-${productId}`).forEach((element) => {
+        element.addEventListener('click', () => {
+          updateDeliveryMethod(productId, element.dataset.deliveryMethod);
+          updateCheckoutPage();
+        });
+      });
     });
 
-    const orderSummary = getOrderSummary(cart, productsMap);
+    const orderSummary = getOrderSummary(cart, productsMap, deliveryMethods);
     orderSummaryHtml =
       `
         <div class="payment-summary-title">
@@ -165,6 +135,7 @@ function updateCheckoutPage() {
     document.querySelector('.js-checkout-header').innerHTML = checkoutHeaderHtml;
     document.querySelector('.js-order-summary').innerHTML = productsSummaryHtml;
     document.querySelector('.js-payment-summary').innerHTML = orderSummaryHtml;
+
 
     // delete product from cart
     document.querySelectorAll('.js-delete-product').forEach((link) => {
@@ -218,3 +189,39 @@ function updateCheckoutPage() {
       ;
   }
 }
+
+// generate delivery options html
+function getDeliveryOptionsHtml(productId) {
+  let deliveryOptionsHtml = '';
+  const shipMethod = cart.get(productId).shipMethod;
+
+  deliveryMethods.forEach((deliveryDetails, deliveryMethod) => {
+    const dateString = dayjs().add(deliveryDetails.deliveryDays, 'days').format('dddd, MMMM D');
+    const priceString = deliveryDetails.costInCents === 0 ? 'FREE Shipping' : `$${formatAmount(deliveryDetails.costInCents)}`;
+    const isChecked = deliveryMethod === shipMethod ? 'checked' : '';
+    deliveryOptionsHtml +=
+      `<div class="delivery-option js-delivery-option-${productId}
+      data-delivery-method=${deliveryMethod}">
+        <input type="radio" ${isChecked}
+          class="delivery-option-input"
+          name="delivery-option-${productId}">
+        <div>
+          <div class="delivery-option-date">
+            ${dateString}
+          </div>
+          <div class="delivery-option-price">
+            ${priceString}
+          </div>
+        </div>
+      </div>`;
+  });
+
+  return deliveryOptionsHtml;
+}
+
+
+
+
+// document.querySelectorAll('.js-delivery-options').innerHTML = `
+
+// `;

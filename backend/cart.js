@@ -3,19 +3,30 @@ export let cart = new Map(JSON.parse(localStorage.getItem('cart')) ?? []);
 export let cartQty = parseInt(localStorage.getItem('cartQty')) || 0;
 
 export function addToCart(productId, addedQuantity) {
-  let qty = cart.get(productId) || 0;
-  cart.set(productId, qty + addedQuantity);
+  const qty = cart.get(productId) ? cart.get(productId).quantity : 0;
+  console.log(qty);
+  console.log(typeof qty);
+  console.log(addedQuantity);
+  console.log(typeof addedQuantity);
+  const currQty = qty + addedQuantity
+  cart.set(productId, { 'quantity': currQty, 'shipMethod': 'STANDARD' });
   cartQty += addedQuantity;
   saveToLocalStorage();
   getTotalCartQuantity();
 }
 export function deleteFromCart(productId) {
-  const qty = cart.get(productId);
+  const qty = cart.get(productId).quantity;
   if (qty) {
     cart.delete(productId);
     cartQty -= qty;
     saveToLocalStorage();
     getTotalCartQuantity();
+  }
+}
+export function updateDeliveryMethod(productId, deliveryMethod) {
+  if (cart.get(productId)) {
+    cart.get(productId).shipMethod = deliveryMethod;
+    saveToLocalStorage();
   }
 }
 
