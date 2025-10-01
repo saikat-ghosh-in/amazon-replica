@@ -10,7 +10,7 @@ let orderSummary = {
 };
 
 export function formatAmount(amountInCents) {
-  return (amountInCents / 100).toFixed(2);
+  return (Math.round(amountInCents) / 100).toFixed(2);
 }
 
 export function getOrderSummary(cart, productsMap, deliveryMethods) {
