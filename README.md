@@ -1,0 +1,1 @@
+This is a basic replica of amazon.com
