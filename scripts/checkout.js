@@ -2,7 +2,7 @@
 import { productsMap } from "./products.js";
 import { cart, deleteFromCart, resetCart, updateDeliveryMethod } from "./cart.js";
 import { formatAmount, getOrderSummary } from "./payment.js";
-import { deliveryMethods } from "../data/deliveryMethods.js";
+import { deliveryMethods } from "./deliveryMethods.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 
 
