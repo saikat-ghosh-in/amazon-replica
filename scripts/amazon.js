@@ -1,8 +1,8 @@
 import { productsMap } from './products.js';
-import { cartQty, addToCart } from './cart.js';
+import { cart } from './cart.js';
 
 // for initial cartQty load from local storage
-document.querySelector('.js-cart-quantity').innerText = cartQty;
+document.querySelector('.js-cart-quantity').innerText = cart.cartQty;
 
 // loadProductsToPlp
 let plpHtml = '';
@@ -65,8 +65,8 @@ document.querySelector('.js-products-grid').innerHTML = plpHtml;
 //add product to cart
 document.querySelectorAll('.js-add-to-cart').forEach((button) => {
   button.addEventListener('click', () => {
-    addToCart(button.dataset.productId, 1);
+    cart.addToCart(button.dataset.productId, 1);
     // make Added visible here
-    document.querySelector('.js-cart-quantity').innerText = cartQty;
+    document.querySelector('.js-cart-quantity').innerText = cart.cartQty;
   });
 });

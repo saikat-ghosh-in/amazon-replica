@@ -1,6 +1,6 @@
 
 import { productsMap } from "./products.js";
-import { cart, deleteFromCart, resetCart, updateDeliveryMethod } from "./cart.js";
+import { cart } from "./cart.js";
 import { formatAmount, getOrderSummary } from "./payment.js";
 import { deliveryMethods } from "./deliveryMethods.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
@@ -29,7 +29,7 @@ function updateCheckoutPage() {
         </div>
 
         <div class="checkout-header-middle-section">
-          Checkout (<a class="return-to-home-link" href="amazon.html">${cart.size === 1 ? '1 item' : cart.size + ' items'}</a>)
+          Checkout (<a class="return-to-home-link" href="amazon.html">${cart.cartItems.size === 1 ? '1 item' : cart.cartItems.size + ' items'}</a>)
         </div>
         <div>
           <button class="reset-cart-button js-reset-cart-button">
@@ -42,7 +42,7 @@ function updateCheckoutPage() {
       </div>
     `;
 
-    cart.forEach((cartDetails, productId) => {
+    cart.cartItems.forEach((cartDetails, productId) => {
       productsSummaryHtml +=
         `
         <div class="cart-item-container">
@@ -86,7 +86,7 @@ function updateCheckoutPage() {
       `;
     });
 
-    const orderSummary = getOrderSummary(cart, productsMap, deliveryMethods);
+    const orderSummary = getOrderSummary(cart.cartItems, productsMap, deliveryMethods);
     orderSummaryHtml =
       `
         <div class="payment-summary-title">
@@ -132,26 +132,24 @@ function updateCheckoutPage() {
     // delete product from cart
     document.querySelectorAll('.js-delete-product').forEach((link) => {
       link.addEventListener('click', () => {
-        deleteFromCart(link.dataset.productId);
+        cart.deleteFromCart(link.dataset.productId);
         updateCheckoutPage();
       });
     });
 
     // reset cart button
     document.querySelector('.js-reset-cart-button').addEventListener('click', () => {
-      resetCart();
-      // cart.clear();
+      cart.resetCart();
       updateCheckoutPage();
     });
 
     // get delivery options
-    document.querySelectorAll('.js-delivery-option')
-      .forEach((element) => {
-        element.addEventListener('click', () => {
-          updateDeliveryMethod(element.dataset.productId, element.dataset.deliveryMethod);
-          updateCheckoutPage();
-        });
+    document.querySelectorAll('.js-delivery-option').forEach((element) => {
+      element.addEventListener('click', () => {
+        cart.updateDeliveryMethod(element.dataset.productId, element.dataset.deliveryMethod);
+        updateCheckoutPage();
       });
+    });
   } else {
     checkoutHeaderHtml =
       `
@@ -177,6 +175,7 @@ function updateCheckoutPage() {
       `
       ;
     document.querySelector('.js-checkout-header').innerHTML = checkoutHeaderHtml;
+
     // have a splash page for empty cart
     document.querySelector('.js-checkout-main').innerHTML =
       `<div>
@@ -193,7 +192,7 @@ function updateCheckoutPage() {
   // generate delivery options html
   function getDeliveryOptionsHtml(productId) {
     let deliveryOptionsHtml = '';
-    const shipMethod = cart.get(productId).shipMethod;
+    const shipMethod = cart.cartItems.get(productId).shipMethod;
 
     deliveryMethods.forEach((deliveryDetails, deliveryMethod) => {
       const dateString = dayjs().add(deliveryDetails.deliveryDays, 'days').format('dddd, MMMM D');
