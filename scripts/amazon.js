@@ -1,12 +1,13 @@
-import { productsMap } from './products.js';
+import { products } from './products.js';
 import { cart } from './cart.js';
+import { formatAmount } from './payment.js';
 
 // for initial cartQty load from local storage
 document.querySelector('.js-cart-quantity').innerText = cart.cartQty;
 
 // loadProductsToPlp
 let plpHtml = '';
-productsMap.forEach((product, id) => {
+products.productsMap.forEach((product, productId) => {
   plpHtml +=
     `
       <div class="product-container">
@@ -21,14 +22,14 @@ productsMap.forEach((product, id) => {
 
         <div class="product-rating-container">
           <img class="product-rating-stars"
-            src="images/ratings/rating-${(product.rating.stars) * 10}.png">
+            src="${products.getStarsUrl(productId)}">
           <div class="product-rating-count link-primary">
             ${product.rating.count}
           </div>
         </div>
 
         <div class="product-price">
-          ${(product.priceCents / 100).toFixed(2)}
+          $${formatAmount(product.priceCents)}
         </div>
 
         <div class="product-quantity-container">
@@ -54,7 +55,7 @@ productsMap.forEach((product, id) => {
         </div>
 
         <button class="add-to-cart-button button-primary js-add-to-cart"
-        data-product-id="${id}">
+        data-product-id="${productId}">
           Add to Cart
         </button>
       </div>

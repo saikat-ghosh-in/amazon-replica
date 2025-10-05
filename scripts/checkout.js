@@ -1,5 +1,5 @@
 
-import { productsMap } from "./products.js";
+import { products } from "./products.js";
 import { cart } from "./cart.js";
 import { formatAmount, getOrderSummary } from "./payment.js";
 import { deliveryMethods } from "./deliveryMethods.js";
@@ -17,7 +17,7 @@ function updateCheckoutPage() {
   let productsSummaryHtml = '';
   let orderSummaryHtml = '';
 
-  if (cart.size > 0) {
+  if (cart.cartItems.size > 0) {
     checkoutHeaderHtml =
       `
       <div class="header-content">
@@ -52,14 +52,14 @@ function updateCheckoutPage() {
 
           <div class="cart-item-details-grid">
             <img class="product-image"
-              src="${productsMap.get(productId).image}">
+              src="${products.getProduct(productId).image}">
 
             <div class="cart-item-details">
               <div class="product-name">
-                ${productsMap.get(productId).name}
+                ${products.getProduct(productId).name}
               </div>
               <div class="product-price">
-                $${(productsMap.get(productId).priceCents / 100).toFixed(2)}
+                $${formatAmount(products.getProduct(productId).priceCents)}
               </div>
               <div class="product-quantity">
                 <span>
@@ -86,7 +86,7 @@ function updateCheckoutPage() {
       `;
     });
 
-    const orderSummary = getOrderSummary(cart.cartItems, productsMap, deliveryMethods);
+    const orderSummary = getOrderSummary(cart.cartItems, products.productsMap, deliveryMethods);
     orderSummaryHtml =
       `
         <div class="payment-summary-title">
@@ -178,11 +178,12 @@ function updateCheckoutPage() {
 
     // have a splash page for empty cart
     document.querySelector('.js-checkout-main').innerHTML =
-      `<div>
+      `
+        <div>
           Your cart is empty
         </div>
         <a  href="amazon.html">
-          <button>
+          <button class="continue-shopping-button">
             Continue shopping
           </button>
         </a>`

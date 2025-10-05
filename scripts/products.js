@@ -1,9 +1,47 @@
 // import products from '../data/products.json' with {type: 'json'};
+// export const productsMap = new Map(products.map(product => [product.id, product]));
 
-export const productsMap = await getProductsMap();
+class Products {
+    productsMap;
 
-async function getProductsMap() {
-    const response = await fetch('https://supersimplebackend.dev/products');
-    const productsJson = await response.json();
-    return new Map(productsJson.map(product => [product.id, product]));
+
+    async init() {
+        const locallyStoredProducts = this.#loadFromLocalStorage();
+        if (locallyStoredProducts) {
+            this.productsMap = new Map(JSON.parse(locallyStoredProducts));
+        } else {
+            this.productsMap = await this.#getProductsMap();
+            this.#saveToLocalStorage();
+        }
+    }
+
+    getProduct(productId) {
+        return this.productsMap.get(productId);
+    }
+
+    getStarsUrl(productId) {
+        return `images/ratings/rating-${(this.getProduct(productId).rating.stars) * 10}.png`
+    }
+
+    // private methods below
+    #loadFromLocalStorage() {
+        return localStorage.getItem('productsMap');
+    }
+
+    #saveToLocalStorage() {
+        localStorage.setItem('productsMap', JSON.stringify([...this.productsMap]));
+    }
+
+    async #getProductsMap() {
+        const response = await fetch('https://supersimplebackend.dev/products');
+        const productsJson = await response.json();
+        return new Map(productsJson.map(product => [product.id, product]));
+    }
 }
+
+async function loadProducts() {
+    const products = new Products();
+    await products.init();
+    return products;
+}
+export const products = await loadProducts();
