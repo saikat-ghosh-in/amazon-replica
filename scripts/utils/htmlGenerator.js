@@ -27,13 +27,7 @@ export function getCheckoutHeaderHtml(cartQty) {
         </div>`;
   } else {
     checkoutHeaderHtml +=
-      `
-        <div class="checkout-header-middle-section"></div>
-        <div>
-          <button class="reset-cart-button js-reset-cart-button" style="opacity: 0.5;">
-            Clear your cart
-          </button>
-        </div>`;
+      `<div class="checkout-header-middle-section"></div>`;
   }
 
   checkoutHeaderHtml +=
@@ -127,8 +121,8 @@ export function getOrderSummaryHtml() {
         <div>Order total:</div>
         <div class="payment-summary-money">$${formatAmount(orderSummary.orderTotal)}</div>
       </div>
-      <a class="cart-link header-link" href="orders.html">
-      <button class="place-order-button button-primary">
+      <a class="cart-link header-link">
+      <button class="place-order-button button-primary js-place-order-button">
         Place your order
       </button>
       </a>
@@ -141,11 +135,12 @@ export function getOrderSummaryHtml() {
   return orderSummaryHtml;
 }
 
+
 export function getEmptyCartHtml() {
   const emptyCartHtml =
     `
     <div>
-      Your cart is empty
+      Your cart is empty!
     </div>
     <a href="amazon.html">
       <button class="continue-shopping-button-empty-cart">
@@ -156,18 +151,18 @@ export function getEmptyCartHtml() {
   return emptyCartHtml;
 }
 
-  // generate delivery options html
-  function getDeliveryOptionsHtml(productId) {
-    let deliveryOptionsHtml = '';
-    const shipMethod = cart.cartItems.get(productId).shipMethod;
 
-    deliveryMethods.forEach((deliveryDetails, deliveryMethod) => {
-      const dateString = dayjs().add(deliveryDetails.deliveryDays, 'days').format('dddd, MMMM D');
-      const priceString = deliveryDetails.costInCents === 0 ? 'FREE Shipping' : `$${formatAmount(deliveryDetails.costInCents)}`;
-      const isChecked = deliveryMethod === shipMethod ? 'checked' : '';
+function getDeliveryOptionsHtml(productId) {
+  let deliveryOptionsHtml = '';
+  const shipMethod = cart.cartItems.get(productId).shipMethod;
 
-      deliveryOptionsHtml +=
-        `<div class="delivery-option js-delivery-option"
+  deliveryMethods.forEach((deliveryDetails, deliveryMethod) => {
+    const dateString = dayjs().add(deliveryDetails.deliveryDays, 'days').format('dddd, MMMM D');
+    const priceString = deliveryDetails.costInCents === 0 ? 'FREE Shipping' : `$${formatAmount(deliveryDetails.costInCents)}`;
+    const isChecked = deliveryMethod === shipMethod ? 'checked' : '';
+
+    deliveryOptionsHtml +=
+      `<div class="delivery-option js-delivery-option"
       data-product-id="${productId}"
       data-delivery-method="${deliveryMethod}">
         <input type="radio" ${isChecked}
@@ -182,7 +177,75 @@ export function getEmptyCartHtml() {
           </div>
         </div>
       </div>`;
-    });
+  });
 
-    return deliveryOptionsHtml;
-  }
+  return deliveryOptionsHtml;
+}
+
+
+export function getOrdersHtml(orders) {
+  let ordersHtml = '';
+
+  orders.forEach((order) => {
+    ordersHtml +=
+      `<div class="order-container">
+        <div class="order-header">
+          <div class="order-header-left-section">
+            <div class="order-date">
+              <div class="order-header-label">Order Placed:</div>
+              <div>August 12 - ${order.orderTime}</div>
+            </div>
+            <div class="order-total">
+              <div class="order-header-label">Total:</div>
+              <div>$${formatAmount(order.totalCostCents)}</div>
+            </div>
+          </div>
+
+          <div class="order-header-right-section">
+            <div class="order-header-label">Order ID:</div>
+            <div>${order.id}</div>
+          </div>
+        </div>
+
+        <div class="order-details-grid">`;
+    order.products.forEach((productDetails) => {
+      ordersHtml +=
+        `
+          <div class="product-image-container">
+            <img src="images/products/athletic-cotton-socks-6-pairs.jpg">
+          </div>
+
+          <div class="product-details">
+            <div class="product-name">
+              Black and Gray Athletic Cotton Socks - 6 Pairs
+            </div>
+            <div class="product-delivery-date">
+              Arriving on: August 15 - ${productDetails.estimatedDeliveryTime}
+            </div>
+            <div class="product-quantity">
+              Quantity: ${productDetails.quantity}
+            </div>
+            <button class="buy-again-button button-primary">
+              <img class="buy-again-icon" src="images/icons/buy-again.png">
+              <span class="buy-again-message">Buy it again</span>
+            </button>
+          </div>
+
+          <div class="product-actions">
+            <a href="tracking.html">
+              <button class="track-package-button button-secondary">
+                Track package
+              </button>
+            </a>
+          </div>`
+        ;
+    });
+    ordersHtml +=
+      `
+          </div>
+        </div>`
+      ;
+  });
+
+  return ordersHtml;
+}

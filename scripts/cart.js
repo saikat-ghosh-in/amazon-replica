@@ -82,6 +82,19 @@ class Cart {
     this.saveToLocalStorage();
     console.log('cart has been reset!');
   }
+
+  getCartAsArray() {
+    let cartArray = [];
+    this.cartItems.forEach((cartItem, productId)=>{
+      cartArray.push({
+        productId: productId,
+        quantity: cartItem.quantity,
+        deliveryOptionId: deliveryMethods.get(cartItem.shipMethod).deliveryOptionId
+      })
+
+    });
+    return cartArray;
+  }
 }
 
 export let cart = new Cart('cart');
