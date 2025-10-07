@@ -18,7 +18,7 @@ export function getCheckoutHeaderHtml(cartQty) {
     checkoutHeaderHtml +=
       `
         <div class="checkout-header-middle-section">
-          Checkout (<a class="return-to-home-link" href="amazon.html">${cartQty === 1 ? '1 item' : cartQty + ' items'}</a>)
+          Checkout
         </div>
         <div>
           <button class="reset-cart-button js-reset-cart-button">
@@ -193,7 +193,7 @@ export function getOrdersHtml(orders) {
           <div class="order-header-left-section">
             <div class="order-date">
               <div class="order-header-label">Order Placed:</div>
-              <div>August 12 - ${order.orderTime}</div>
+              <div>${dayjs(order.orderTime).format('MMMM D, YYYY')}</div>
             </div>
             <div class="order-total">
               <div class="order-header-label">Total:</div>
@@ -209,18 +209,19 @@ export function getOrdersHtml(orders) {
 
         <div class="order-details-grid">`;
     order.products.forEach((productDetails) => {
+      const product = products.getProduct(productDetails.productId);
       ordersHtml +=
         `
           <div class="product-image-container">
-            <img src="images/products/athletic-cotton-socks-6-pairs.jpg">
+            <img src="${product.image}">
           </div>
 
           <div class="product-details">
             <div class="product-name">
-              Black and Gray Athletic Cotton Socks - 6 Pairs
+              ${product.name}
             </div>
             <div class="product-delivery-date">
-              Arriving on: August 15 - ${productDetails.estimatedDeliveryTime}
+              Arriving on: ${dayjs(productDetails.estimatedDeliveryTime).format('MMMM D, YYYY')}
             </div>
             <div class="product-quantity">
               Quantity: ${productDetails.quantity}
@@ -232,11 +233,15 @@ export function getOrdersHtml(orders) {
           </div>
 
           <div class="product-actions">
-            <a href="tracking.html">
+           
+              <a href="tracking.html">
+                <button class="track-package-button button-secondary">
+                  Track package
+                </button>
+              </a>
               <button class="track-package-button button-secondary">
-                Track package
+                Cancel Order
               </button>
-            </a>
           </div>`
         ;
     });

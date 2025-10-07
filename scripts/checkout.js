@@ -1,7 +1,7 @@
 
 import { cart } from "./cart.js";
 import { getCheckoutHeaderHtml, getProductsSummaryHtml, getOrderSummaryHtml, getEmptyCartHtml } from './utils/htmlGenerator.js';
-
+import { placeOrder } from "./orders.js";
 
 // for initial load
 updateCheckoutPage();
@@ -44,6 +44,7 @@ function updateCheckoutPage() {
       .addEventListener('click', async () => {
         await placeOrder();
         window.location.href = 'orders.html';
+        cart.resetCart();
       });
 
   } else {
@@ -51,25 +52,4 @@ function updateCheckoutPage() {
     document.querySelector('.js-checkout-header').innerHTML = getCheckoutHeaderHtml(0); // when cart is empty
     document.querySelector('.js-checkout-main').innerHTML = getEmptyCartHtml(); // have a splash page for empty cart
   }
-}
-
-async function placeOrder() {
-  const response = await fetch('https://supersimplebackend.dev/orders',
-    {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        cart: cart.getCartAsArray()
-      })
-    }
-  );
-  const order = await response.json();
-  addOrder(order);
-  return 'order placed successfully';
-}
-
-function addOrder(order) {
-  const orders = JSON.parse(localStorage.getItem('orders')) || [];
-  orders.unshift(order);
-  localStorage.setItem('orders', JSON.stringify(orders));
 }
