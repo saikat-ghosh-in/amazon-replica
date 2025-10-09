@@ -19,7 +19,7 @@ export function getOrderSummary() {
     itemTotal: itemTotal,
     shippingAndHandlingCost: shippingAndHandlingCost,
     totalBeforeTax: totalBeforeTax,
-    taxPercentage: taxPercentage + '%',
+    taxPercentage: taxPercentage,
     taxAmount: taxAmount,
     orderTotal: orderTotal
   };

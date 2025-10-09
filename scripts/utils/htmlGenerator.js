@@ -239,7 +239,9 @@ export function getOrdersHtml(orders) {
                   Track package
                 </button>
               </a>
-              <button class="track-package-button button-secondary">
+              <button class="cancel-order-button button-secondary js-cancel-order-button"
+              data-order-id="${order.id}"
+              data-product-id="${product.id}">
                 Cancel Order
               </button>
           </div>`
@@ -251,6 +253,5 @@ export function getOrdersHtml(orders) {
         </div>`
       ;
   });
-
   return ordersHtml;
 }

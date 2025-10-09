@@ -1,7 +1,7 @@
 
 import { cart } from "./cart.js";
 import { getCheckoutHeaderHtml, getProductsSummaryHtml, getOrderSummaryHtml, getEmptyCartHtml } from './utils/htmlGenerator.js';
-import { placeOrder } from "./orders.js";
+import { order } from "./orders.js";
 
 // for initial load
 updateCheckoutPage();
@@ -42,7 +42,7 @@ function updateCheckoutPage() {
     // place the order
     document.querySelector('.js-place-order-button')
       .addEventListener('click', async () => {
-        await placeOrder();
+        await order.placeOrder();
         window.location.href = 'orders.html';
         cart.resetCart();
       });

@@ -83,6 +83,7 @@ class Cart {
     console.log('cart has been reset!');
   }
 
+  // for placeOrder input
   getCartAsArray() {
     let cartArray = [];
     this.cartItems.forEach((cartItem, productId)=>{
