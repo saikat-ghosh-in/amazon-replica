@@ -182,12 +182,45 @@ function getDeliveryOptionsHtml(productId) {
   return deliveryOptionsHtml;
 }
 
+export function getOrdersHeaderHtml() {
+  const ordersHeaderHtml =
+    `<div class="amazon-header-left-section">
+        <a href="amazon.html" class="header-link">
+          <img class="amazon-logo" src="images/amazon-logo-white.png">
+          <img class="amazon-mobile-logo" src="images/amazon-mobile-logo-white.png">
+        </a>
+      </div>
+
+      <div class="amazon-header-middle-section">
+        <input class="search-bar" type="text" placeholder="Search">
+
+        <button class="search-button">
+          <img class="search-icon" src="images/icons/search-icon.png">
+        </button>
+      </div>
+
+      <div class="amazon-header-right-section">
+        <a class="orders-link header-link" href="orders.html">
+          <span class="returns-text">Returns</span>
+          <span class="orders-text">& Orders</span>
+        </a>
+
+        <a class="cart-link header-link" href="checkout.html">
+          <img class="cart-icon" src="images/icons/cart-icon.png">
+          <div class="cart-quantity">${cart.cartQty}</div>
+          <div class="cart-text">Cart</div>
+        </a>
+      </div>`
+    ;
+  return ordersHeaderHtml;
+}
 
 export function getOrdersHtml(orders) {
   let ordersHtml = '';
 
   orders.forEach((order) => {
-    ordersHtml +=
+    let isOrderOpen = false;
+    let orderHtml =
       `<div class="order-container">
         <div class="order-header">
           <div class="order-header-left-section">
@@ -208,10 +241,13 @@ export function getOrdersHtml(orders) {
         </div>
 
         <div class="order-details-grid">`;
+
     order.products.forEach((productDetails) => {
-      const product = products.getProduct(productDetails.productId);
-      ordersHtml +=
-        `
+      if (productDetails.status !== 'CANCELLED') {
+        isOrderOpen = true;
+        const product = products.getProduct(productDetails.productId);
+        orderHtml +=
+          `
           <div class="product-image-container">
             <img src="${product.image}">
           </div>
@@ -233,25 +269,52 @@ export function getOrdersHtml(orders) {
           </div>
 
           <div class="product-actions">
-           
-              <a href="tracking.html">
-                <button class="track-package-button button-secondary">
-                  Track package
-                </button>
-              </a>
+              <button class="track-package-button button-secondary js-track-package-button"
+                data-order-id="${order.id}"
+                data-product-id="${product.id}">
+                Track package
+              </button>
               <button class="cancel-order-button button-secondary js-cancel-order-button"
-              data-order-id="${order.id}"
-              data-product-id="${product.id}">
-                Cancel Order
+                data-order-id="${order.id}"
+                data-product-id="${product.id}">
+                Cancel Item
               </button>
           </div>`
-        ;
+          ;
+      }
     });
-    ordersHtml +=
-      `
-          </div>
+
+    orderHtml +=
+      `   </div>
         </div>`
       ;
+    if (isOrderOpen) {
+      ordersHtml += orderHtml;
+    }
   });
   return ordersHtml;
+}
+
+export function getTrackingPageHeaderHtml() {
+  const trackingPageHeaderHtml =
+    `<div class="amazon-header-left-section">
+        <a href="amazon.html" class="header-link">
+          <img class="amazon-logo"
+            src="images/amazon-logo-white.png">
+          <img class="amazon-mobile-logo"
+            src="images/amazon-mobile-logo-white.png">
+        </a>
+      </div>
+
+      <div class="amazon-header-middle-section">
+      </div>
+
+      <div class="amazon-header-right-section">
+        <a class="orders-link header-link" href="orders.html">
+          <span class="returns-text">Returns</span>
+          <span class="orders-text">& Orders</span>
+        </a>
+      </div>`
+    ;
+  return trackingPageHeaderHtml;
 }

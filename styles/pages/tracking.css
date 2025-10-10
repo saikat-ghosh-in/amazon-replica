@@ -73,9 +73,13 @@
   overflow: hidden;
 }
 
-.progress-bar {
-  height: 100%;
-  background-color: green;
-  border-radius: 50px;
-  width: 50%;
+.order-tracking .progress-bar {
+    height: 100%;
+    background-color: green;
+    border-radius: 50px;
+    width: 0;
+    transition: width 1s;
+}
+.order-tracking .current-status-label {
+    color: rgb(6, 125, 98);
 }
