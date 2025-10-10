@@ -9,7 +9,7 @@ export function getCheckoutHeaderHtml(cartQty) {
     `
       <div class="header-content">
         <div class="checkout-header-left-section">
-          <a href="amazon.html">
+          <a href="index.html">
             <img class="amazon-logo" src="images/amazon-logo.png">
             <img class="amazon-mobile-logo" src="images/amazon-mobile-logo.png">
           </a>
@@ -126,7 +126,7 @@ export function getOrderSummaryHtml() {
         Place your order
       </button>
       </a>
-      <a href="amazon.html">
+      <a href="index.html">
       <button class="continue-shopping-button button-secondary">
         Continue Shopping
       </button>
@@ -142,7 +142,7 @@ export function getEmptyCartHtml() {
     <div>
       Your cart is empty!
     </div>
-    <a href="amazon.html">
+    <a href="index.html">
       <button class="continue-shopping-button-empty-cart">
         Continue shopping
       </button>
@@ -185,7 +185,7 @@ function getDeliveryOptionsHtml(productId) {
 export function getOrdersHeaderHtml() {
   const ordersHeaderHtml =
     `<div class="amazon-header-left-section">
-        <a href="amazon.html" class="header-link">
+        <a href="index.html" class="header-link">
           <img class="amazon-logo" src="images/amazon-logo-white.png">
           <img class="amazon-mobile-logo" src="images/amazon-mobile-logo-white.png">
         </a>
@@ -298,7 +298,7 @@ export function getOrdersHtml(orders) {
 export function getTrackingPageHeaderHtml() {
   const trackingPageHeaderHtml =
     `<div class="amazon-header-left-section">
-        <a href="amazon.html" class="header-link">
+        <a href="index.html" class="header-link">
           <img class="amazon-logo"
             src="images/amazon-logo-white.png">
           <img class="amazon-mobile-logo"
