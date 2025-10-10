@@ -152,10 +152,14 @@
 }
 
 .product-actions {
-  align-self: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
 }
 
-.track-package-button {
+.track-package-button,
+.cancel-order-button {
   width: 100%;
   font-size: 15px;
   padding: 8px;
@@ -176,7 +180,8 @@
     margin-bottom: 30px;
   }
 
-  .track-package-button {
+  .track-package-button,
+  .cancel-order-button {
     width: 140px;
   }
 }
@@ -213,7 +218,8 @@
     margin-bottom: 70px;
   }
 
-  .track-package-button {
+  .track-package-button,
+  .cancel-order-button {
     width: 100%;
     padding: 12px;
   }

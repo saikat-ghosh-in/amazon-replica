@@ -55,7 +55,7 @@ products.productsMap.forEach((product, productId) => {
         </div>
 
         <button class="add-to-cart-button button-primary js-add-to-cart"
-        data-product-id="${productId}">
+        data-product='${JSON.stringify({id: productId, unitPrice: product.priceCents})}'>
           Add to Cart
         </button>
       </div>
@@ -66,7 +66,7 @@ document.querySelector('.js-products-grid').innerHTML = plpHtml;
 //add product to cart
 document.querySelectorAll('.js-add-to-cart').forEach((button) => {
   button.addEventListener('click', () => {
-    cart.addToCart(button.dataset.productId, 1);
+    cart.addToCart(JSON.parse(button.dataset.product), 1);
     // make Added visible here
     document.querySelector('.js-cart-quantity').innerText = cart.cartQty;
   });

@@ -1,9 +1,10 @@
 // import products from '../data/products.json' with {type: 'json'};
 // export const productsMap = new Map(products.map(product => [product.id, product]));
 
+import { formatAmount } from "./payment.js";
+
 class Products {
     productsMap;
-
 
     async init() {
         const locallyStoredProducts = this.#loadFromLocalStorage();
@@ -21,6 +22,10 @@ class Products {
 
     getStarsUrl(productId) {
         return `images/ratings/rating-${(this.getProduct(productId).rating.stars) * 10}.png`
+    }
+
+    getPrice(productId) {
+        return formatAmount(this.productsMap.get(productId).priceCents);
     }
 
     // private methods below
