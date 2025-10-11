@@ -49,7 +49,7 @@ products.productsMap.forEach((product, productId) => {
 
         <div class="product-spacer"></div>
 
-        <div class="added-to-cart">
+        <div class="added-to-cart js-added-to-cart-${productId}">
           <img src="images/icons/checkmark.png">
           Added
         </div>
@@ -69,6 +69,12 @@ document.querySelectorAll('.js-add-to-cart').forEach((button) => {
     const addedQuantity = parseInt(document.querySelector(`.js-product-quantity-selector-${button.dataset.productId}`).value);
     cart.addToCart(products.getProduct(button.dataset.productId), addedQuantity);
     // make Added visible here
+    const successMessageElement = document.querySelector(`.js-added-to-cart-${button.dataset.productId}`);
+    successMessageElement.classList.add('is-visible');
+    setTimeout(() => {
+      successMessageElement.classList.remove('is-visible');
+    }, 1000);
+
     document.querySelector('.js-cart-quantity').innerText = cart.cartQty;
   });
 });

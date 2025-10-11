@@ -144,9 +144,14 @@
   opacity: 0;
 }
 
-.added-to-cart img {
+.products-grid .added-to-cart img {
   height: 20px;
   margin-right: 5px;
+}
+
+.products-grid .added-to-cart.is-visible {
+  opacity: 1;
+  transition: none;
 }
 
 .add-to-cart-button {
