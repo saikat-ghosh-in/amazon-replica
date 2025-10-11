@@ -119,6 +119,32 @@
 .product-quantity .link-primary {
   margin-left: 3px;
 }
+.cart-item-container .new-quantity-input {
+  width: 50px;
+  font-size: 16px;
+}
+
+/* The quantity text box and save quantity link are
+  initially hidden. */
+.cart-item-container .new-quantity-input,
+.cart-item-container .save-quantity-link {
+  display: none;
+}
+
+/* When updating the quantity we want to:
+  1. Show a text box where the user can set a quantity.
+  2. Hide the "Update" quantity link and replace it with
+    a "Save" quantity link. */
+.cart-item-container .is-updating-quantity .new-quantity-input,
+.cart-item-container .is-updating-quantity .save-quantity-link {
+  display: inline-block;
+}
+
+.cart-item-container .is-updating-quantity .quantity-label,
+.cart-item-container .is-updating-quantity .update-quantity-link {
+  display: none;
+}
+
 
 @media (max-width: 1000px) {
   .delivery-options {

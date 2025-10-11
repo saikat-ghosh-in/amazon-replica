@@ -54,6 +54,17 @@ class Cart {
     }
   }
 
+  updateQuantity(productId, newQuantity) {
+    if (newQuantity === 0) {
+      this.deleteFromCart(productId);
+      return;
+    }
+    const oldQuantity = this.cartItems.get(productId).quantity;
+    this.cartItems.get(productId).quantity = newQuantity;
+    this.cartQty = this.cartQty - oldQuantity + newQuantity;
+    this.saveToLocalStorage();
+  }
+
   deleteFromCart(productId) {
     const qty = this.cartItems.get(productId).quantity;
     if (qty) {
@@ -64,6 +75,10 @@ class Cart {
   }
 
   updateDeliveryMethod(productId, deliveryMethod) {
+    if (!deliveryMethods.has(deliveryMethod)) {
+      alert('Not a valid delivery method');
+      return;
+    }
     if (this.cartItems.get(productId)) {
       this.cartItems.get(productId).shipMethod = deliveryMethod;
       this.saveToLocalStorage();
@@ -86,7 +101,7 @@ class Cart {
   // for placeOrder input
   getCartAsArray() {
     let cartArray = [];
-    this.cartItems.forEach((cartItem, productId)=>{
+    this.cartItems.forEach((cartItem, productId) => {
       cartArray.push({
         productId: productId,
         quantity: cartItem.quantity,

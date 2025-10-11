@@ -62,16 +62,29 @@ export function getProductsSummaryHtml() {
                 $${products.getPrice(productId)}
               </div>
               <div class="product-quantity">
-                <span>
-                  Quantity: <span class="quantity-label">${cartDetails.quantity}</span>
-                </span>
-                <span class="update-quantity-link link-primary">
-                  Update
-                </span>
-                <span class="delete-quantity-link link-primary js-delete-product"
+
+                <div class="product-quantity js-quantity-container"
                 data-product-id=${productId}>
-                  Delete
-                </span>
+                  Quantity: <span class="js-quantity-label quantity-label">
+                    ${cartDetails.quantity}
+                  </span>
+
+                  <input class="new-quantity-input js-new-quantity-input" type="number" 
+                  value="${Number(cartDetails.quantity) + 1}">
+
+                  <span class="update-quantity-link link-primary js-update-quantity-link">
+                    Update
+                  </span>
+
+                  <span class="save-quantity-link link-primary js-save-quantity-link">
+                    Save
+                  </span>
+
+                  <span class="delete-quantity-link link-primary js-delete-quantity-link">
+                    Delete
+                  </span>
+                </div>
+  
               </div>
             </div>
 
