@@ -33,7 +33,7 @@ products.productsMap.forEach((product, productId) => {
         </div>
 
         <div class="product-quantity-container">
-          <select>
+          <select class="js-product-quantity-selector-${productId}">
             <option selected value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -55,7 +55,7 @@ products.productsMap.forEach((product, productId) => {
         </div>
 
         <button class="add-to-cart-button button-primary js-add-to-cart"
-        data-product='${JSON.stringify(product)}'>
+        data-product-id='${productId}'>
           Add to Cart
         </button>
       </div>
@@ -66,7 +66,8 @@ document.querySelector('.js-products-grid').innerHTML = plpHtml;
 //add product to cart
 document.querySelectorAll('.js-add-to-cart').forEach((button) => {
   button.addEventListener('click', () => {
-    cart.addToCart(JSON.parse(button.dataset.product), 1);
+    const addedQuantity = parseInt(document.querySelector(`.js-product-quantity-selector-${button.dataset.productId}`).value);
+    cart.addToCart(products.getProduct(button.dataset.productId), addedQuantity);
     // make Added visible here
     document.querySelector('.js-cart-quantity').innerText = cart.cartQty;
   });
