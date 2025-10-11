@@ -15,70 +15,10 @@ function updateCheckoutPage() {
     document.querySelector('.js-payment-summary').innerHTML = getOrderSummaryHtml();
 
 
-    // event listeners below
+    //// event listeners below ////
+
+    // add update quantity event listeners (update -> text box enter/esc, save link)
     addUpdateQtyEventListeners();
-
-    // #handleQuantityInput(event) {
-    //   const quantityContainer = event.currentTarget.closest('.js-quantity-container');
-
-    //   if (event.key === 'Enter') {
-    //     this.#updateQuantity(quantityContainer);
-
-    //   } else if (event.key === 'Escape') {
-    //     this.#cancelUpdateQuantity(quantityContainer);
-    //   }
-    // }
-
-    // #cancelUpdateQuantity(quantityContainer) {
-    //   const inputElement = quantityContainer.querySelector('.js-new-quantity-input');
-    //   quantityContainer.classList.remove('is-updating-quantity');
-
-    //   const oldQuantity = quantityContainer
-    //     .querySelector('.js-quantity-label')
-    //     .textContent;
-
-    //   inputElement.value = parseInt(oldQuantity, 10);
-    // }
-
-    // #handleSaveLinkClick(event) {
-    //   const quantityContainer = event.currentTarget.closest('.js-quantity-container');
-    //   this.#updateQuantity(quantityContainer);
-    // }
-
-    // #updateQuantity(quantityContainer) {
-    //   const inputElement = quantityContainer.querySelector('.js-new-quantity-input');
-
-    //   if (inputElement.value === '') {
-    //     this.#cancelUpdateQuantity(quantityContainer);
-    //     return;
-    //   }
-
-    //   const newQuantity = parseInt(inputElement.value, 10);
-
-    //   if (newQuantity < 0) {
-    //     alert('Not a valid quantity');
-    //     return;
-    //   }
-
-    //   // Update quantity in cart.
-    //   const cartItemContainer = quantityContainer.closest('.js-cart-item');
-    //   const cartItemId = cartItemContainer.getAttribute('data-cart-item-id');
-
-    //   if (newQuantity === 0) {
-    //     cart.updateQuantity(cartItemId, 0);
-    //     this.#removeFromCartSummary(cartItemContainer);
-
-    //   } else {
-    //     cart.updateQuantity(cartItemId, newQuantity);
-
-    //     quantityContainer.classList.remove('is-updating-quantity');
-    //     quantityContainer.querySelector('.js-quantity-label')
-    //       .textContent = newQuantity;
-    //   }
-
-    //   this.#updatePaymentDetailsAndHeader();
-    // }
-
 
     // delete product from cart
     document.querySelectorAll('.js-delete-quantity-link').forEach((element) => {
