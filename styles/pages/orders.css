@@ -15,7 +15,7 @@
 
 .page-title {
   font-weight: 700;
-  font-size: 26px;
+  font-size: 1.625rem;
   margin-bottom: 25px;
 }
 
@@ -136,7 +136,7 @@
 }
 
 .buy-again-button {
-  font-size: 15px;
+  font-size: 0.9375rem;
   width: 140px;
   height: 36px;
   border-radius: 8px;
@@ -161,7 +161,7 @@
 .track-package-button,
 .cancel-order-button {
   width: 100%;
-  font-size: 15px;
+  font-size: 0.9375rem;
   padding: 8px;
 }
 

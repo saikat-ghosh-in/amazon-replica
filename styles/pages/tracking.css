@@ -19,7 +19,7 @@
 }
 
 .delivery-date {
-  font-size: 25px;
+  font-size: 1.5625rem;
   font-weight: 700;
   margin-bottom: 10px;
 }
@@ -38,7 +38,7 @@
 .progress-labels-container {
   display: flex;
   justify-content: space-between;
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 500;
   margin-bottom: 15px;
 }
@@ -49,7 +49,7 @@
 
 @media (max-width: 575px) {
   .progress-labels-container {
-    font-size: 16px;
+    font-size: 1rem;
   }
 }
 

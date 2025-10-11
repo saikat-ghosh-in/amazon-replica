@@ -1,5 +1,5 @@
 .main {
-  font-size:16px;
+  /* font-size:16px; */
   max-width: 1100px;
   padding-left: 30px;
   padding-right: 30px;
@@ -17,7 +17,7 @@
 
 .page-title {
   font-weight: 700;
-  font-size: 22px;
+  font-size: 1.375rem;
   margin-bottom: 18px;
 }
 
@@ -72,7 +72,7 @@
 .delivery-date {
   color: rgb(0, 118, 0);
   font-weight: 700;
-  font-size: 19px;
+  font-size: 1.1875rem;
   margin-top: 5px;
   margin-bottom: 22px;
 }
@@ -160,12 +160,12 @@
 
 .delivery-option-price {
   color: rgb(120, 120, 120);
-  font-size: 15px;
+  font-size: 0.9375rem;
 }
 
 .payment-summary-title {
   font-weight: 700;
-  font-size: 18px;
+  font-size: 1.125rem;
   margin-bottom: 12px;
 }
 
@@ -176,7 +176,7 @@
      The 1st column will take up the remaining space. */
   grid-template-columns: 1fr auto;
 
-  font-size: 15px;
+  font-size: 0.9375rem;
   margin-bottom: 9px;
 }
 
@@ -195,7 +195,7 @@
 .total-row {
   color: rgb(177, 39, 4);
   font-weight: 700;
-  font-size: 18px;
+  font-size: 1.125rem;
 
   border-top: 1px solid rgb(222, 222, 222);
   padding-top: 18px;
