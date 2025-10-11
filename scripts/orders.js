@@ -25,6 +25,13 @@ function loadOrdersPage() {
       loadOrdersPage();
     });
   });
+
+  document.querySelectorAll('.js-buy-again-button').forEach((button) => {
+    button.addEventListener('click', () => {
+      cart.addToCart(JSON.parse(button.dataset.product), button.dataset.quantity);
+      WindowUtils.setHref('checkout.html');
+    });
+  });
 }
 
 function updateFulfillmentStatus(orderId, productId, newStatus) {

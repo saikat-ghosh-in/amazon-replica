@@ -14,7 +14,7 @@ class Cart {
 
   #loadFromLocalStorage() {
     this.cartItems = new Map(JSON.parse(localStorage.getItem(this.#cartKey)) || []);
-    this.cartQty = parseInt(localStorage.getItem(this.#cartKey + 'cartQty')) || 0;
+    this.cartQty = parseInt(localStorage.getItem(this.#cartKey + 'CartQty')) || 0;
   }
 
 
@@ -22,7 +22,7 @@ class Cart {
     const qty = this.cartItems.get(product.id) ? this.cartItems.get(product.id).quantity : 0;
     const currQty = qty + addedQuantity
 
-    this.cartItems.set(product.id, { quantity: currQty, unitPrice: product.unitPrice, shipMethod: 'STANDARD' });
+    this.cartItems.set(product.id, { quantity: currQty, unitPrice: product.priceCents, shipMethod: 'STANDARD' });
     this.cartQty += addedQuantity;
     this.saveToLocalStorage();
   }
@@ -72,7 +72,7 @@ class Cart {
 
   saveToLocalStorage() {
     localStorage.setItem(this.#cartKey, JSON.stringify([...this.cartItems]));
-    localStorage.setItem(this.#cartKey + 'cartQty', this.cartQty);
+    localStorage.setItem(this.#cartKey + 'CartQty', this.cartQty);
     console.log(localStorage.getItem(this.#cartKey));
   }
 
@@ -80,7 +80,7 @@ class Cart {
     this.cartItems.clear();
     this.cartQty = 0;
     this.saveToLocalStorage();
-    console.log('cart has been reset!');
+    console.log('Cart has been reset!');
   }
 
   // for placeOrder input

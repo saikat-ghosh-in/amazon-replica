@@ -55,7 +55,7 @@ products.productsMap.forEach((product, productId) => {
         </div>
 
         <button class="add-to-cart-button button-primary js-add-to-cart"
-        data-product='${JSON.stringify({id: productId, unitPrice: product.priceCents})}'>
+        data-product='${JSON.stringify(product)}'>
           Add to Cart
         </button>
       </div>
