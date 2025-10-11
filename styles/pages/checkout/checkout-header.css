@@ -77,7 +77,7 @@
 @media (max-width: 1000px) {
   .checkout-header-middle-section {
     font-size: 20px;
-    margin-right: 60px;
+    /* margin-right: 60px; */
   }
 
   .return-to-home-link {
@@ -86,9 +86,9 @@
 }
 
 @media (max-width: 575px) {
-  .checkout-header-middle-section {
+  /* .checkout-header-middle-section {
     margin-right: 5px;
-  }
+  } */
 }
 
 .checkout-header-right-section {
