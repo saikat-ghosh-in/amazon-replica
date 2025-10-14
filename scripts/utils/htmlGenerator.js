@@ -80,6 +80,10 @@ export function getProductsSummaryHtml() {
                     Save
                   </span>
 
+                  <span class="cancel-update-quantity-link link-primary js-cancel-update-quantity-link">
+                    Cancel
+                  </span>
+
                   <span class="delete-quantity-link link-primary js-delete-quantity-link">
                     Delete
                   </span>
@@ -213,11 +217,6 @@ export function getOrdersHeaderHtml() {
       </div>
 
       <div class="amazon-header-right-section">
-        <a class="orders-link header-link" href="orders.html">
-          <span class="returns-text">Returns</span>
-          <span class="orders-text">& Orders</span>
-        </a>
-
         <a class="cart-link header-link" href="checkout.html">
           <img class="cart-icon" src="images/icons/cart-icon.png">
           <div class="cart-quantity">${cart.cartQty}</div>
@@ -328,6 +327,11 @@ export function getTrackingPageHeaderHtml() {
         <a class="orders-link header-link" href="orders.html">
           <span class="returns-text">Returns</span>
           <span class="orders-text">& Orders</span>
+        </a>
+        <a class="cart-link header-link" href="checkout.html">
+          <img class="cart-icon" src="images/icons/cart-icon.png">
+          <div class="cart-quantity">${cart.cartQty}</div>
+          <div class="cart-text">Cart</div>
         </a>
       </div>`
     ;

@@ -60,17 +60,17 @@ function updateCheckoutPage() {
 
 function addUpdateQtyEventListeners() {
   document.querySelectorAll('.js-update-quantity-link').forEach((element) => {
-    element.addEventListener('click', () => {
+    element.addEventListener('click', (e) => {
+      e.stopPropagation();
       const quantityContainer = element.closest('.js-quantity-container');
       const productId = quantityContainer.dataset.productId;
       quantityContainer.classList.add('is-updating-quantity');
 
       const newQuantityInputDom = quantityContainer.querySelector('.js-new-quantity-input');
 
-      newQuantityInputDom.addEventListener('keypress', (event) => {
+      newQuantityInputDom.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') {
           const enteredQuantity = Number(newQuantityInputDom.value.trim());
-
           if (!isValidCartQuantity(enteredQuantity)) {
             alert('Not a valid quantity');
             updateCheckoutPage();
@@ -100,6 +100,22 @@ function addUpdateQtyEventListeners() {
         cart.updateQuantity(productId, enteredQuantity);
         quantityContainer.classList.remove('is-updating-quantity');
         updateCheckoutPage();
+        return;
+      });
+
+      const cancelUpdateQuantityLinkDom = quantityContainer.querySelector('.js-cancel-update-quantity-link');
+      cancelUpdateQuantityLinkDom.addEventListener('click', () => {
+        quantityContainer.classList.remove('is-updating-quantity');
+        updateCheckoutPage();
+        return;
+      });
+
+      document.addEventListener('click', (event) => {
+        if (!quantityContainer.contains(event.target)) {
+          quantityContainer.classList.remove('is-updating-quantity');
+          updateCheckoutPage();
+          return;
+        }
         return;
       });
     });
