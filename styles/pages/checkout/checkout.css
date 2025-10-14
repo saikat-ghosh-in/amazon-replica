@@ -119,6 +119,7 @@
 .product-quantity .link-primary {
   margin-left: 3px;
 }
+
 .cart-item-container .new-quantity-input {
   width: 50px;
   font-size: 16px;
@@ -127,7 +128,8 @@
 /* The quantity text box and save quantity link are
   initially hidden. */
 .cart-item-container .new-quantity-input,
-.cart-item-container .save-quantity-link {
+.cart-item-container .save-quantity-link,
+.cart-item-container .cancel-update-quantity-link {
   display: none;
 }
 
@@ -136,7 +138,8 @@
   2. Hide the "Update" quantity link and replace it with
     a "Save" quantity link. */
 .cart-item-container .is-updating-quantity .new-quantity-input,
-.cart-item-container .is-updating-quantity .save-quantity-link {
+.cart-item-container .is-updating-quantity .save-quantity-link,
+.cart-item-container .is-updating-quantity .cancel-update-quantity-link {
   display: inline-block;
 }
 
@@ -227,7 +230,8 @@
   padding-top: 18px;
 }
 
-.place-order-button, .continue-shopping-button {
+.place-order-button,
+.continue-shopping-button {
   width: 100%;
   padding-top: 12px;
   padding-bottom: 12px;
@@ -259,6 +263,7 @@
   margin-top: 11px;
   transition: background-color 0.15s;
 }
+
 .continue-shopping-button-empty-cart:hover {
   background-color: rgba(45, 45, 255, 0.55);
 }
