@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Amazon Project</title>
+    <title>Educational Shopping Demo — Not Affiliated with Amazon</title>
 
     <!-- This code is needed for responsive design to work.
       (Responsive design = make the website look good on
@@ -17,8 +17,17 @@
     <link rel="stylesheet" href="styles/shared/general.css">
     <link rel="stylesheet" href="styles/shared/amazon-header.css">
     <link rel="stylesheet" href="styles/pages/amazon.css">
+    <link rel="stylesheet" href="styles/shared/demo-notice.css">
   </head>
   <body>
+    <div class="demo-shell">
+      <aside class="demo-notice" aria-label="Educational demonstration notice">
+        <div>
+          <p><strong>Educational demo by Saikat Ghosh.</strong> Not affiliated with Amazon.</p>
+          <p>Simulated shopping only. No real purchases or payments. Do not enter personal or payment information.</p>
+        </div>
+        <a href="https://github.com/saikat-ghosh-in/amazon-replica" target="_blank" rel="noopener noreferrer">View project source</a>
+      </aside>
     <div class="amazon-header">
       <div class="amazon-header-left-section">
         <a href="index.html" class="header-link">
@@ -51,6 +60,7 @@
       </div>
     </div>
     
+    </div>
     <div class="main">
       
       <div class="products-grid js-products-grid"></div>

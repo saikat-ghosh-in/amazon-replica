@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>Orders</title>
+  <title>Demo Orders — Educational Shopping Project</title>
 
   <!-- This code is needed for responsive design to work.
       (Responsive design = make the website look good on
@@ -18,13 +18,23 @@
   <link rel="stylesheet" href="styles/shared/general.css">
   <link rel="stylesheet" href="styles/shared/amazon-header.css">
   <link rel="stylesheet" href="styles/pages/orders.css">
+  <link rel="stylesheet" href="styles/shared/demo-notice.css">
 </head>
 
 <body>
+  <div class="demo-shell">
+    <aside class="demo-notice" aria-label="Educational demonstration notice">
+      <div>
+        <p><strong>Educational demo by Saikat Ghosh.</strong> Not affiliated with Amazon.</p>
+        <p>Simulated shopping only. No real purchases or payments. Do not enter personal or payment information.</p>
+      </div>
+      <a href="https://github.com/saikat-ghosh-in/amazon-replica" target="_blank" rel="noopener noreferrer">View project source</a>
+    </aside>
   <div class="amazon-header js-orders-amazon-header"></div>
+  </div>
 
   <div class="main">
-    <div class="page-title">Your Orders</div>
+    <div class="page-title">Your demo orders</div>
     <div class="orders-grid js-order-grid"></div>
   </div>
 

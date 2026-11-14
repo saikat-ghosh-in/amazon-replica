@@ -1,0 +1,50 @@
+.demo-shell {
+  position: sticky;
+  top: 0;
+  z-index: 1001;
+}
+
+.demo-notice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  padding: 12px 24px;
+  background: #fff4d5;
+  color: #332b16;
+  border-bottom: 1px solid #d9bd70;
+  font: 14px/1.5 Roboto, Arial, sans-serif;
+}
+
+.demo-notice strong { font-weight: 700; }
+.demo-notice p + p { margin-top: 3px; }
+.demo-notice a {
+  flex-shrink: 0;
+  color: #332b16;
+  text-underline-offset: 3px;
+}
+.demo-notice a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+
+.demo-shell .amazon-header,
+.demo-shell .checkout-header {
+  position: relative;
+  top: auto;
+  left: auto;
+  right: auto;
+}
+
+.demo-shell + .main { margin-top: 30px; }
+
+@media (max-width: 640px) {
+  .demo-notice {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+}
+
+@media (max-height: 600px) {
+  .demo-shell { position: relative; }
+}

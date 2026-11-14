@@ -18,7 +18,7 @@ export function getCheckoutHeaderHtml(cartQty) {
     checkoutHeaderHtml +=
       `
         <div class="checkout-header-middle-section">
-          Checkout
+          Demo checkout
         </div>
         <div>
           <button class="reset-cart-button js-reset-cart-button">
@@ -111,7 +111,7 @@ export function getOrderSummaryHtml() {
   const orderSummaryHtml =
     `
       <div class="payment-summary-title">
-        Order Summary
+        Demo order summary
       </div>
 
       <div class="payment-summary-row">
@@ -140,7 +140,7 @@ export function getOrderSummaryHtml() {
       </div>
       <a class="cart-link header-link">
       <button class="place-order-button button-primary js-place-order-button">
-        Place your order
+        Place demo order
       </button>
       </a>
       <a href="index.html">
